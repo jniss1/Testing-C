@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 // SOLUTION FILE
 
 main()
@@ -29,10 +30,10 @@ main()
   // 2 -- find sizes of the other C datatypes
   printf("\n\n PART 2 ----------\n");
 
-  printf("\n size of data type int = %d ", sizeof(var_int));
-  printf("\n size of data type char = %d ", sizeof(i));
+  printf("\n size of data type int = %lu ", sizeof(var_int));
+  printf("\n size of data type char = %lu ", sizeof(i));
   long int bannana;
-  printf("\n size of data type long int = %d ", sizeof(bannana));
+  printf("\n size of data type long = %lu ", sizeof(bannana));
 
   // 3 -- explore signed versus unsigned datatypes and their interactions
   printf("\n\n PART 3 ----------\n");
@@ -76,7 +77,7 @@ main()
   printf("\n\n PART 4 ----------\n");
 
   printf("\n 5 > 4: %d\n", (5 > 4));
-  printf("\n the size of a boolean is: %d", sizeof((5 > 4)));
+  printf("\n the size of a boolean is: %lu", sizeof((5 > 4)));
 
   int ape = 5;
   int beluga = 8;
@@ -109,6 +110,8 @@ main()
   // 6 -- pointer basics
   printf("\n\n PART 6 ----------\n");
 
+  printf("Pointers are broken on Codespace...");
+
   ip = a;
   printf("\nstart %d %d %d %d %d %d %d \n",
 	 a[0], *(ip), *(ip+1), *ip++, *ip, *(ip+3), *(ip-1));
@@ -124,21 +127,38 @@ main()
   // 7 -- programming with pointers
   printf("\n\n PART 7 ----------\n");
 
+   printf("Pointers are broken on Codespace...");
 
   // 8 -- strings
   printf("\n\n PART 8 ----------\n");
 
-  printf("\n %s \n", AString);
+  int length = strlen(AString);
+  for (int i = 0; i < length + 1; i++) {
+      printf("ASCII Value: %d\n", AString[i]);
+  }
 
+  char addOne[] = "HAL";
+  for (int i = 0; i < length; i++) {
+        addOne[i] = addOne[i] + 1;  // Add 1 to the ASCII value of each character
+  }
 
+  printf("Adding 1 to each char in HAL: %s\n", addOne);
+
+  addOne[length] = addOne[length] + 60;
+  printf("Adding 60 to final byte of modified HAL: %s\n", addOne);
 
   // 9 -- address calculation
   printf("\n\n PART 9 ----------\n");
-  for (k = 0; k < 10; k++) b[k] = a[k];         // direct reference to array element
 
+  // Combined into one loop comparing both side by side
   ip = a;
   ip2 = b;
-  for (k = 0; k < 10; k++) *ip2++ = *ip++;     // indirect reference to array element
+  for (k = 0; k < 10; k++) {
+    printf("\n&a[%d] = %p, &b[%d] = %p\n", k, &a[k], k, &b[k]);
+    b[k] = a[k];         // direct reference to array element
+    printf("&ip   = %p, &ip2  = %p\n", ip, ip2);
+    *ip2++ = *ip++;     // indirect reference to array element
+  }
 
   // all done
   printf("\n\n ALL DONE\n");
