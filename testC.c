@@ -30,10 +30,10 @@ main()
   // 2 -- find sizes of the other C datatypes
   printf("\n\n PART 2 ----------\n");
 
-  printf("\n size of data type int = %lu ", sizeof(var_int));
-  printf("\n size of data type char = %lu ", sizeof(i));
+  printf("\n size of data type int = %lu bytes", sizeof(var_int));
+  printf("\n size of data type char = %lu byte", sizeof(i));
   long int bannana;
-  printf("\n size of data type long = %lu ", sizeof(bannana));
+  printf("\n size of data type long = %lu bytes", sizeof(bannana));
 
   // 3 -- explore signed versus unsigned datatypes and their interactions
   printf("\n\n PART 3 ----------\n");
@@ -77,7 +77,7 @@ main()
   printf("\n\n PART 4 ----------\n");
 
   printf("\n 5 > 4: %d\n", (5 > 4));
-  printf("\n the size of a boolean is: %lu", sizeof((5 > 4)));
+  printf("\n the size of a boolean is: %lu bytes", sizeof((5 > 4)));
 
   int ape = 5;
   int beluga = 8;
@@ -110,24 +110,66 @@ main()
   // 6 -- pointer basics
   printf("\n\n PART 6 ----------\n");
 
-  printf("Pointers are broken on Codespace...");
-
   ip = a;
-  printf("\nstart %d %d %d %d %d %d %d \n",
-	 a[0], *(ip), *(ip+1), *ip++, *ip, *(ip+3), *(ip-1));
-
-  printf("\nstart %d", a[0]);
-  printf(" %d", *(ip));
+  //printf("\nstart %d %d %d %d %d %d %d \n",
+	 //a[0], *(ip), *(ip+1), *ip++, *ip, *(ip+3), *(ip-1));
+  printf("\nIssue fixed by printing on new line, \nnow going to modify output:");
+  printf("\nstart %d", a[1]);
+  printf(" %d", *(++ip));
   printf(" %d", *(ip+1));
-  printf(" %d", *ip++);
+  printf(" %d", *(ip++));
   printf(" %d", *ip);
   printf(" %d", *(ip+3));
   printf(" %d\n", *(ip-1));
+  printf("Size of an integer pointer: %lu bytes\n", sizeof(ip));
+  printf("Now printing the pointer values themselves:");
+  printf("\nIssue fixed by printing on new line, \nnow going to modify output:");
+  
+  ip = a;  
+  printf(" %p", (void*)ip);           // Address of a[0]
+  printf(" %p", (void*)(ip + 1));     // Address of a[1]
+  printf(" %p", (void*)ip++);         // Address of a[0], then increment ip (ip now points to a[1])
+  printf(" %p", (void*)ip);           // Address of a[1]
+  printf(" %p", (void*)(ip + 3));     // Address of a[4]
+  printf(" %p\n", (void*)(ip - 1));   // Address of a[0]
 
   // 7 -- programming with pointers
   printf("\n\n PART 7 ----------\n");
 
-   printf("Pointers are broken on Codespace...");
+  // Reversing array A
+  int reverseIndex;
+  int n = sizeof(var_int);
+
+  // Method 1: 
+  for (i = 0; i < n; i++) {
+      reverseIndex = n - 1 - i;
+      b[i] = a[reverseIndex]; // -1 is last elem, -i goes back to front
+  }
+
+  // Method 2:
+  int *ipa = a;
+  int *ipc = c;
+  for (i=0; i < n; i++){
+    reverseIndex = n - 1 - i;
+    *(ipc + i) = *(ipa + reverseIndex); // Explaining the C: the * dereferences the array pointers and sets the item of c[i] to that of a[i]. As we saw before, adding n to an array pointer moves the pointer n slots along
+  }
+
+  printf("Input Array (a[]): ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+
+    printf("Reversed Array using Method 1 (Indices) b[] = ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", b[i]);
+    }
+    printf("\n");
+
+    printf("Reversed Array using Method 2 (pointers) c[] = ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", c[i]);
+    }
 
   // 8 -- strings
   printf("\n\n PART 8 ----------\n");
@@ -150,16 +192,19 @@ main()
   // 9 -- address calculation
   printf("\n\n PART 9 ----------\n");
 
-  // Combined into one loop comparing both side by side
+  printf("\nCode Fragment 1: \n");
+  for (k = 0; k < 10; k++) {
+    printf("&a[%d] = %p, &b[%d] = %p\n", k, &a[k], k, &b[k]);
+    b[k] = a[k];         // direct reference to array element    // direct reference to array element
+  }
+
   ip = a;
   ip2 = b;
-  for (k = 0; k < 10; k++) {
-    printf("\n&a[%d] = %p, &b[%d] = %p\n", k, &a[k], k, &b[k]);
-    b[k] = a[k];         // direct reference to array element
+  printf("\nCode Fragment 2: \n");
+  for (k = 0; k < 10; k++){
     printf("&ip   = %p, &ip2  = %p\n", ip, ip2);
     *ip2++ = *ip++;     // indirect reference to array element
   }
-
   // all done
   printf("\n\n ALL DONE\n");
 }
