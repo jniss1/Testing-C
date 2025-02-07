@@ -126,12 +126,12 @@ main()
   printf("\nIssue fixed by printing on new line, \nnow going to modify output:");
   
   ip = a;  
-  printf(" %p", (void*)ip);           // Address of a[0]
-  printf(" %p", (void*)(ip + 1));     // Address of a[1]
-  printf(" %p", (void*)ip++);         // Address of a[0], then increment ip (ip now points to a[1])
-  printf(" %p", (void*)ip);           // Address of a[1]
-  printf(" %p", (void*)(ip + 3));     // Address of a[4]
-  printf(" %p\n", (void*)(ip - 1));   // Address of a[0]
+  printf(" %p", ip);           // Address of a[0]
+  printf(" %p", (ip + 1));     // Address of a[1]
+  printf(" %p", ip++);         // Address of a[0], then increment ip (ip now points to a[1])
+  printf(" %p", ip);           // Address of a[1]
+  printf(" %p", (ip + 3));     // Address of a[4]
+  printf(" %p\n", (ip - 1));   // Address of a[0]
 
   // 7 -- programming with pointers
   printf("\n\n PART 7 ----------\n");
